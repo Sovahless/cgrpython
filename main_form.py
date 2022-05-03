@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.adv
 
 ###########################################################################
 ## Class MyFrame1
@@ -46,6 +47,7 @@ class MyFrame1 ( wx.Frame ):
 
 		# Connect Events
 		self.m_comboBox2.Bind( wx.EVT_COMBOBOX, self.imgchange )
+		self.m_button2.Bind( wx.EVT_BUTTON, self.changeframe )
 
 	def __del__( self ):
 		pass
@@ -53,6 +55,9 @@ class MyFrame1 ( wx.Frame ):
 
 	# Virtual event handlers, override them in your derived class
 	def imgchange( self, event ):
+		event.Skip()
+
+	def changeframe( self, event ):
 		event.Skip()
 
 
@@ -67,6 +72,56 @@ class MyFrame2 ( wx.Frame ):
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
+		fgSizer2 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer2.SetFlexibleDirection( wx.BOTH )
+		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText5 = wx.StaticText( self, wx.ID_ANY, u"Nom", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText5.Wrap( -1 )
+
+		fgSizer2.Add( self.m_staticText5, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		self.m_textCtrl4 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer2.Add( self.m_textCtrl4, 0, wx.ALL, 5 )
+
+		self.m_staticText7 = wx.StaticText( self, wx.ID_ANY, u"Adresse", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText7.Wrap( -1 )
+
+		fgSizer2.Add( self.m_staticText7, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		self.m_textCtrl5 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer2.Add( self.m_textCtrl5, 0, wx.ALL, 5 )
+
+		self.m_staticText8 = wx.StaticText( self, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+
+		fgSizer2.Add( self.m_staticText8, 0, wx.ALL, 5 )
+
+		self.m_textCtrl6 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer2.Add( self.m_textCtrl6, 0, wx.ALL, 5 )
+
+		self.m_staticText9 = wx.StaticText( self, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText9.Wrap( -1 )
+
+		fgSizer2.Add( self.m_staticText9, 0, wx.ALL, 5 )
+
+		self.m_datePicker2 = wx.adv.DatePickerCtrl( self, wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.DP_DEFAULT )
+		fgSizer2.Add( self.m_datePicker2, 0, wx.ALL, 5 )
+
+		self.m_staticText10 = wx.StaticText( self, wx.ID_ANY, u"Code 3 chiffre", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10.Wrap( -1 )
+
+		fgSizer2.Add( self.m_staticText10, 0, wx.ALL, 5 )
+
+		self.m_textCtrl8 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer2.Add( self.m_textCtrl8, 0, wx.ALL, 5 )
+
+		self.m_button5 = wx.Button( self, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer2.Add( self.m_button5, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_BOTTOM|wx.LEFT, 5 )
+
+
+		self.SetSizer( fgSizer2 )
+		self.Layout()
 
 		self.Centre( wx.BOTH )
 
