@@ -1,8 +1,11 @@
 import wx
 import main_form
+import mysql.connector
 from switchcase import switch
 
-currentmovie = None
+dbcgr = mysql.connector.connect(user='root', password='',
+                                host='127.0.0.1',
+                                database='cgr')
 
 
 class MainFrame2(main_form.MyFrame2):
@@ -10,6 +13,7 @@ class MainFrame2(main_form.MyFrame2):
     def __init__(self, parent, title):
         main_form.MyFrame2.__init__(self, parent)
         self.m_textCtrl8.SetMaxLength(3)
+        self.m_staticText11.SetLabel("Ticket pour " + currentmovie)
 
 
 class MainFrame(main_form.MyFrame1):
@@ -22,6 +26,7 @@ class MainFrame(main_form.MyFrame1):
 
     def imgchange(self, event):
         imgselection = self.m_comboBox2.GetSelection()
+        global currentmovie
 
         for case in switch(imgselection):
             if case(0):
@@ -65,6 +70,7 @@ class MainFrame(main_form.MyFrame1):
         self.Destroy()
         self.MyFrame2 = MainFrame2(None, 'test')
         self.MyFrame2.Show()
+        print(currentmovie)
 
 
 class MainApp(wx.App):
