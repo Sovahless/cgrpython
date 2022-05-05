@@ -103,7 +103,7 @@ class MyFrame2 ( wx.Frame ):
 		fgSizer2.Add( self.m_staticText8, 0, wx.ALL, 5 )
 
 		self.m_textCtrl6 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl6.SetMaxLength( 18 )
+		self.m_textCtrl6.SetMaxLength( 16 )
 		fgSizer2.Add( self.m_textCtrl6, 0, wx.ALL, 5 )
 
 		self.m_staticText9 = wx.StaticText( self, wx.ID_ANY, u"Date D'Expiration", wx.DefaultPosition, wx.DefaultSize, 0 )
