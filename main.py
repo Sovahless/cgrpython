@@ -1,8 +1,7 @@
-import alert as alert
 import wx
 import main_form
 import mysql.connector
-import ctypes
+from fpdf import FPDF
 from switchcase import switch
 
 dbcgr = mysql.connector.connect(user='root', password='',
@@ -43,9 +42,9 @@ placesalle12 = int(placesalle12[0])
 
 currentmovie = None
 
-
 class MainFrame3(main_form.MyFrame1):
 
+#Init et crée le PDF
     def __init__(self, parent, title):
         main_form.MyFrame3.__init__(self, parent)
 
@@ -62,6 +61,13 @@ class MainFrame2(main_form.MyFrame2):
         sql = f"INSERT INTO tickets (Prix, idSalle, idFilm, Nom) VALUES (8.50, {currentmovieid}, {currentmovieid}, '{ticketname}')"
         val = (max(fetchticket), 8.50, currentmovieid, currentmovieid, self.m_textCtrl4.GetValue())
         cgrcursor.execute(sql)
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font('Arial', 'B', 16)
+        pdf.cell(40, 10, ticketname, 0, 1)
+        pdf.cell(40, 10, "Ticket pour voir " + currentmovie, 0, 1)
+        pdf.image('img/cgr2.png', 20, 40, 40)
+        pdf.output('Ticket.pdf', 'F')
         self.Destroy()
         self.MyFrame3 = MainFrame3(None, 'test')
         self.MyFrame3.Show()
@@ -87,7 +93,7 @@ class MainFrame(main_form.MyFrame1):
                     print(currentmovie)
                 else:
                     self.m_bitmap4.SetBitmap(wx.Bitmap('img/avengers.bmp'))
-                    currentmovie = "Avengers"
+                    currentmovie = "Avengers Endgame"
                     currentmovieid = 1
             if case(1):
                 if placesalle2 >= 300:
@@ -95,7 +101,7 @@ class MainFrame(main_form.MyFrame1):
                     print(currentmovie)
                 else:
                     self.m_bitmap4.SetBitmap(wx.Bitmap('img/chihiro.bmp'))
-                    currentmovie = "Chihiro"
+                    currentmovie = "Le Voyage de Chihiro"
                     currentmovieid = 2
             if case(2):
                 if placesalle3 >= 300:
