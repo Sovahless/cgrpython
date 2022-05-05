@@ -4,6 +4,7 @@ import mysql.connector
 from fpdf import FPDF
 from switchcase import switch
 
+#connection a la db
 dbcgr = mysql.connector.connect(user='root', password='',
                                 host='127.0.0.1',
                                 database='cgr')
@@ -44,7 +45,6 @@ currentmovie = None
 
 class MainFrame3(main_form.MyFrame1):
 
-#Init et crée le PDF
     def __init__(self, parent, title):
         main_form.MyFrame3.__init__(self, parent)
 
@@ -55,7 +55,7 @@ class MainFrame2(main_form.MyFrame2):
         main_form.MyFrame2.__init__(self, parent)
         self.m_staticText11.SetLabel("Ticket pour " + currentmovie)
 
-    # Enregistre le ticket du client dans la db
+    # Enregistre le ticket du client dans la db, le crée le ticket en pdf et affiche la prochaine frame
     def saveticket(self, event):
         ticketname = self.m_textCtrl4.GetValue()
         sql = f"INSERT INTO tickets (Prix, idSalle, idFilm, Nom) VALUES (8.50, {currentmovieid}, {currentmovieid}, '{ticketname}')"
@@ -81,6 +81,7 @@ class MainFrame(main_form.MyFrame1):
     def fermer(self, event):
         print(event)
 
+    #Verifie la selection du combobox et change l'image, verifie si la salle est pleine et empeche de continuer si c'est le cas
     def imgchange(self, event):
         imgselection = self.m_comboBox2.GetSelection()
         global currentmovie
@@ -184,7 +185,7 @@ class MainFrame(main_form.MyFrame1):
                     currentmovie = "Les Barbapapa"
                     currentmovieid = 12
 
-#Verifie qu'un film a etait selectionner ou qu'il y a de la place et passe a la fenetre suivante
+#Verifie qu'un film a etait selectionner et passe a la fenetre suivante
     def changeframe(self, event):
         if currentmovie == None:
             pass
