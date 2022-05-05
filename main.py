@@ -1,19 +1,70 @@
+import alert as alert
 import wx
 import main_form
 import mysql.connector
+import ctypes
 from switchcase import switch
 
 dbcgr = mysql.connector.connect(user='root', password='',
                                 host='127.0.0.1',
                                 database='cgr')
+dbcgr.autocommit = True
+cgrcursor = dbcgr.cursor()
+
+cgrcursor.execute("SELECT idTickets FROM tickets")
+fetchticket = cgrcursor.fetchall()
+
+cgrcursor.execute("SELECT place_Prise FROM salle")
+fetchplace = cgrcursor.fetchall()
+placesalle1 = fetchplace[0]
+placesalle2 = fetchplace[1]
+placesalle3 = fetchplace[2]
+placesalle4 = fetchplace[3]
+placesalle5 = fetchplace[4]
+placesalle6 = fetchplace[5]
+placesalle7 = fetchplace[6]
+placesalle8 = fetchplace[7]
+placesalle9 = fetchplace[8]
+placesalle10 = fetchplace[9]
+placesalle11 = fetchplace[10]
+placesalle12 = fetchplace[11]
+placesalle1 = int(placesalle1[0])
+placesalle2 = int(placesalle2[0])
+placesalle3 = int(placesalle3[0])
+placesalle4 = int(placesalle4[0])
+placesalle5 = int(placesalle5[0])
+placesalle6 = int(placesalle6[0])
+placesalle7 = int(placesalle7[0])
+placesalle8 = int(placesalle8[0])
+placesalle9 = int(placesalle9[0])
+placesalle10 = int(placesalle10[0])
+placesalle11 = int(placesalle11[0])
+placesalle12 = int(placesalle12[0])
+
+currentmovie = None
+
+
+class MainFrame3(main_form.MyFrame1):
+
+    def __init__(self, parent, title):
+        main_form.MyFrame3.__init__(self, parent)
 
 
 class MainFrame2(main_form.MyFrame2):
 
     def __init__(self, parent, title):
         main_form.MyFrame2.__init__(self, parent)
-        self.m_textCtrl8.SetMaxLength(3)
         self.m_staticText11.SetLabel("Ticket pour " + currentmovie)
+
+    # Enregistre le ticket du client dans la db
+    def saveticket(self, event):
+        ticketname = self.m_textCtrl4.GetValue()
+        sql = f"INSERT INTO tickets (Prix, idSalle, idFilm, Nom) VALUES (8.50, {currentmovieid}, {currentmovieid}, '{ticketname}')"
+        val = (max(fetchticket), 8.50, currentmovieid, currentmovieid, self.m_textCtrl4.GetValue())
+        cgrcursor.execute(sql)
+        self.Destroy()
+        self.MyFrame3 = MainFrame3(None, 'test')
+        self.MyFrame3.Show()
 
 
 class MainFrame(main_form.MyFrame1):
@@ -27,50 +78,114 @@ class MainFrame(main_form.MyFrame1):
     def imgchange(self, event):
         imgselection = self.m_comboBox2.GetSelection()
         global currentmovie
+        global currentmovieid
 
         for case in switch(imgselection):
             if case(0):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/avengers.bmp'))
-                currentmovie = "Avengers"
+                if placesalle1 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/avengers.bmp'))
+                    currentmovie = "Avengers"
+                    currentmovieid = 1
             if case(1):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/chihiro.bmp'))
-                currentmovie = "Chihiro"
+                if placesalle2 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/chihiro.bmp'))
+                    currentmovie = "Chihiro"
+                    currentmovieid = 2
             if case(2):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/spiderman.bmp'))
-                currentmovie = "Spiderman No Way Home"
+                if placesalle3 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/spiderman.bmp'))
+                    currentmovie = "Spiderman No Way Home"
+                    currentmovieid = 3
             if case(3):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/batman.bmp'))
-                currentmovie = "The Batman"
+                if placesalle4 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/batman.bmp'))
+                    currentmovie = "The Batman"
+                    currentmovieid = 4
             if case(4):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/collini.bmp'))
-                currentmovie = "L'Affaire Collini"
+                if placesalle5 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/collini.bmp'))
+                    currentmovie = "L'Affaire Collini"
+                    currentmovieid = 5
             if case(5):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/morbius.bmp'))
-                currentmovie = "Morbius"
+                if placesalle6 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/morbius.bmp'))
+                    currentmovie = "Morbius"
+                    currentmovieid = 6
             if case(6):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/ogre.bmp'))
-                currentmovie = "Ogre"
+                if placesalle7 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/ogre.bmp'))
+                    currentmovie = "Ogre"
+                    currentmovieid = 7
             if case(7):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/abuela.bmp'))
-                currentmovie = "Abuela"
+                if placesalle8 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/abuela.bmp'))
+                    currentmovie = "Abuela"
+                    currentmovieid = 8
             if case(8):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/sonic.bmp'))
-                currentmovie = "Sonic 2"
+                if placesalle9 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/sonic.bmp'))
+                    currentmovie = "Sonic 2"
+                    currentmovieid = 9
             if case(9):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/secret.bmp'))
-                currentmovie = "Le secret de la cité perdu"
+                if placesalle10 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/secret.bmp'))
+                    currentmovie = "Le secret de la cité perdu"
+                    currentmovieid = 10
             if case(10):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/jujutsu.bmp'))
-                currentmovie = "Jujutsu Kaisen 0"
+                if placesalle11 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/jujutsu.bmp'))
+                    currentmovie = "Jujutsu Kaisen 0"
+                    currentmovieid = 11
             if case(11):
-                self.m_bitmap4.SetBitmap(wx.Bitmap('img/barbapapa.bmp'))
-                currentmovie = "Les Barbapapa"
+                if placesalle12 >= 300:
+                    wx.MessageBox("Seance Pleine", 'Info', wx.OK | wx.ICON_INFORMATION)
+                    print(currentmovie)
+                else:
+                    self.m_bitmap4.SetBitmap(wx.Bitmap('img/barbapapa.bmp'))
+                    currentmovie = "Les Barbapapa"
+                    currentmovieid = 12
 
+#Verifie qu'un film a etait selectionner ou qu'il y a de la place et passe a la fenetre suivante
     def changeframe(self, event):
-        self.Destroy()
-        self.MyFrame2 = MainFrame2(None, 'test')
-        self.MyFrame2.Show()
-        print(currentmovie)
+        if currentmovie == None:
+            pass
+        else:
+            self.Destroy()
+            self.MyFrame2 = MainFrame2(None, 'test')
+            self.MyFrame2.Show()
 
 
 class MainApp(wx.App):
