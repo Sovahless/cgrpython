@@ -66,6 +66,7 @@ class MainFrame2(main_form.MyFrame2):
         pdf.set_font('Arial', 'B', 16)
         pdf.cell(40, 10, ticketname, 0, 1)
         pdf.cell(40, 10, "Ticket pour voir " + currentmovie, 0, 1)
+        pdf.cell(40, 10, "Salle " + str(currentmovieid), 0, 1)
         pdf.image('img/cgr2.png', 20, 40, 40)
         pdf.output('Ticket.pdf', 'F')
         self.Destroy()
